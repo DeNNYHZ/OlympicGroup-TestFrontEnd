@@ -3,251 +3,175 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import LazyImage from '../components/common/LazyImage';
 import { useOmdb } from '../hooks/useOmdb';
-import { ArrowLeft, Star, Calendar, Clock, Film, Grip, Globe, PenTool, Award } from 'lucide-react';
+import { ArrowLeft, Star, Clock, Film, Award, LayoutGrid, Calendar } from 'lucide-react';
 
 export default function Detail() {
   const { id } = useParams();
   const { getMovieDetail, loading, error } = useOmdb();
   const [movie, setMovie] = useState(null);
-  const [localError, setLocalError] = useState(null);
 
   useEffect(() => {
-    const fetchDetail = async () => {
+    const fetch = async () => {
       const data = await getMovieDetail(id);
-      if (data) {
-        setMovie(data);
-      } else {
-        setLocalError('Movie not found');
-      }
+      if (data) setMovie(data);
     };
-
-    fetchDetail();
+    fetch();
   }, [id, getMovieDetail]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-primary flex items-center justify-center">
-        <div className="flex flex-col items-center">
-          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-light text-xl animate-pulse">Loading Details...</p>
-        </div>
-      </div>
-    );
-  }
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-primary">
+      <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
 
-  if (error || localError || !movie) {
-    return (
-      <div className="min-h-screen bg-primary flex flex-col items-center justify-center p-4 text-center">
-        <div className="text-6xl mb-4">😕</div>
-        <p className="text-light text-2xl mb-6 font-bold">{error || localError}</p>
-        <Link to="/" className="bg-accent hover:bg-red-600 text-white font-bold px-8 py-3 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
-          <ArrowLeft size={20} /> Back Home
-        </Link>
-      </div>
-    );
-  }
+  if (!movie) return null;
 
   return (
-    <>
+    <div className="min-h-screen bg-primary pb-20 font-sans text-gray-100">
       <Helmet>
-        <title>{movie.Title} - MovieDB</title>
-        <meta name="description" content={movie.Plot !== 'N/A' ? movie.Plot : `Details about ${movie.Title}`} />
-        <meta property="og:title" content={`${movie.Title} (${movie.Year})`} />
-        <meta property="og:description" content={movie.Plot !== 'N/A' ? movie.Plot : `Details about ${movie.Title}`} />
-        <meta property="og:image" content={movie.Poster} />
-        <meta property="og:type" content="video.movie" />
+        <title>{movie.Title} | StreamFlix</title>
       </Helmet>
 
-      <div className="min-h-screen bg-primary text-light pb-20">
-
-        {/* Navigation */}
-        <nav className="absolute top-0 left-0 w-full z-50 p-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
-          <Link to="/" className="flex items-center gap-2 text-white/80 hover:text-accent transition-colors font-semibold group">
-            <div className="bg-black/30 p-2 rounded-full group-hover:bg-black/50 transition-colors backdrop-blur-sm">
-              <ArrowLeft size={24} />
-            </div>
-            <span className="drop-shadow-md">Back to Search</span>
-          </Link>
-        </nav>
-
-        {/* Hero Section */}
-        <div className="relative w-full h-[500px] md:h-[700px] overflow-hidden">
-          {/* Background Image with Blur */}
-          <div className="absolute inset-0">
-            <LazyImage
-              src={movie.Poster}
-              alt="Background"
-              className="w-full h-full object-cover blur-xl opacity-40 scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/30 to-primary" />
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 w-full z-50 p-6 bg-gradient-to-b from-black/90 to-transparent pointer-events-none">
+        <Link to="/" className="pointer-events-auto inline-flex items-center gap-3 text-white/80 hover:text-white transition-colors group">
+          <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:bg-accent transition-colors">
+            <ArrowLeft size={20} />
           </div>
+          <span className="font-bold tracking-wide drop-shadow-md">Back</span>
+        </Link>
+      </nav>
 
-          <div className="absolute inset-0 flex items-end justify-center pb-12 px-4 max-w-7xl mx-auto">
-            <div className="w-full flex flex-col md:flex-row gap-8 items-end">
-              {/* Poster Card */}
-              <div className="hidden md:block w-72 h-[420px] rounded-xl overflow-hidden shadow-2xl border-4 border-white/5 flex-shrink-0 relative group">
-                <LazyImage
-                  src={movie.Poster}
-                  alt={movie.Title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              {/* Hero Info */}
-              <div className="flex-1 mb-4">
-                <div className="flex flex-wrap items-center gap-3 mb-4 text-sm font-semibold tracking-wider">
-                  {movie.Rated !== 'N/A' && (
-                    <span className="bg-white/10 backdrop-blur-md px-3 py-1 rounded border border-white/20 text-gray-200">
-                      {movie.Rated}
-                    </span>
-                  )}
-                  {movie.Runtime !== 'N/A' && (
-                    <span className="flex items-center gap-1 text-gray-300">
-                      <Clock size={16} className="text-accent" /> {movie.Runtime}
-                    </span>
-                  )}
-                  {movie.Type && (
-                    <span className="flex items-center gap-1 uppercase text-accent">
-                      <Film size={16} /> {movie.Type}
-                    </span>
-                  )}
-                </div>
-
-                <h1 className="text-4xl md:text-6xl font-black mb-2 leading-tight drop-shadow-lg">
-                  {movie.Title}
-                </h1>
-
-                <div className="flex flex-wrap items-center gap-6 mb-6">
-                  <span className="text-2xl text-gray-300 font-light">{movie.Year}</span>
-
-                  {movie.imdbRating && movie.imdbRating !== 'N/A' && (
-                    <div className="flex items-center gap-2">
-                      <Star size={28} className="text-yellow-400 fill-current" />
-                      <span className="text-3xl font-bold text-white">{movie.imdbRating}</span>
-                      <span className="text-gray-400 text-sm mt-2">/10</span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {movie.Genre && movie.Genre !== 'N/A' && movie.Genre.split(', ').map((genre) => (
-                    <span key={genre} className="px-4 py-1.5 rounded-full bg-accent/20 border border-accent/30 text-accent font-medium text-sm hover:bg-accent hover:text-white transition-colors cursor-default">
-                      {genre}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Hero Section */}
+      <div className="relative w-full h-[85vh] overflow-hidden">
+        {/* Backdrop */}
+        <div className="absolute inset-0 select-none">
+          <LazyImage
+            src={movie.Poster}
+            className="w-full h-full object-cover opacity-40 blur-3xl scale-125 saturate-150"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
+          {/* Mesh Grain Overlay for Texture */}
+          <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
         </div>
 
-        {/* Content Section */}
-        <div className="max-w-7xl mx-auto px-4 -mt-8 relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12">
+        {/* Hero Content */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
 
-          {/* Left Col: Poster Mobile & additional info */}
-          <div className="md:hidden">
-            <div className="w-48 h-72 mx-auto rounded-xl overflow-hidden shadow-2xl border-4 border-white/10 -mt-24 mb-8">
-              <LazyImage
-                src={movie.Poster}
-                alt={movie.Title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Main Content */}
-          <div className="md:col-span-2 space-y-10">
-            {/* Plot */}
-            <section className="animate-slideIn">
-              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2 text-white">
-                <span className="w-1 h-8 bg-accent rounded-full block"></span> Synopsis
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed font-light">
-                {movie.Plot !== 'N/A' ? movie.Plot : 'No synopsis available.'}
-              </p>
-            </section>
-
-            {/* Cast & Crew */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {movie.Director !== 'N/A' && (
-                <div className="bg-secondary/50 p-6 rounded-xl border border-white/5">
-                  <h4 className="text-gray-400 text-sm uppercase tracking-widest font-bold mb-3 flex items-center gap-2">
-                    <Film size={16} /> Director
-                  </h4>
-                  <p className="text-white font-semibold text-lg">{movie.Director}</p>
-                </div>
-              )}
-              {movie.Writer !== 'N/A' && (
-                <div className="bg-secondary/50 p-6 rounded-xl border border-white/5">
-                  <h4 className="text-gray-400 text-sm uppercase tracking-widest font-bold mb-3 flex items-center gap-2">
-                    <PenTool size={16} /> Writer
-                  </h4>
-                  <p className="text-white font-semibold text-lg">{movie.Writer}</p>
-                </div>
-              )}
+            {/* Poster (Floating) */}
+            <div className="hidden md:block md:col-span-4 lg:col-span-3">
+              <div className="rounded-xl overflow-hidden shadow-2xl shadow-accent/20 border border-white/10 rotate-1 hover:rotate-0 transition-transform duration-500">
+                <LazyImage src={movie.Poster} className="w-full h-auto object-cover" />
+              </div>
             </div>
 
-            {movie.Actors !== 'N/A' && (
-              <div className="bg-secondary/30 p-8 rounded-xl border border-white/5">
-                <h4 className="text-gray-400 text-sm uppercase tracking-widest font-bold mb-4 flex items-center gap-2">
-                  <Grip size={16} /> Top Cast
-                </h4>
-                <div className="flex flex-wrap gap-3">
-                  {movie.Actors.split(', ').map(actor => (
-                    <div key={actor} className="flex items-center gap-3 bg-primary px-4 py-3 rounded-lg border border-gray-700/50">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center text-xs font-bold text-gray-400">
-                        {actor.charAt(0)}
-                      </div>
-                      <span className="font-semibold text-gray-200">{actor}</span>
+            {/* Info */}
+            <div className="md:col-span-8 lg:col-span-9 space-y-6 mb-12">
+              {/* Breadcrumbs / Badges */}
+              <div className="flex flex-wrap items-center gap-3 text-sm font-bold tracking-wider">
+                {movie.Rated !== 'N/A' && <span className="bg-white/10 backdrop-blur px-3 py-1 rounded text-white">{movie.Rated}</span>}
+                <span className="flex items-center gap-1 text-accent"><Clock size={16} /> {movie.Runtime}</span>
+                <span className="text-gray-400 uppercase">{movie.Type}</span>
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-black leading-none tracking-tight text-white drop-shadow-2xl">
+                {movie.Title}
+              </h1>
+
+              {/* Ratings */}
+              <div className="flex items-center gap-6">
+                {movie.imdbRating !== 'N/A' && (
+                  <div className="flex items-center gap-2">
+                    <Star className="text-yellow-400 fill-current" size={32} />
+                    <div className="flex flex-col">
+                      <span className="text-2xl font-bold text-white leading-none">{movie.imdbRating}</span>
+                      <span className="text-xs text-gray-500">IMDb Score</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Sidebar Info */}
-          <div className="space-y-6">
-            <div className="bg-secondary rounded-xl p-6 border border-white/5 shadow-lg">
-              <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-2">Information</h3>
-
-              <div className="space-y-4">
-                {movie.Released !== 'N/A' && (
-                  <div>
-                    <p className="text-gray-400 text-sm mb-1 flex items-center gap-2"><Calendar size={14} /> Released</p>
-                    <p className="text-white font-medium">{movie.Released}</p>
-                  </div>
-                )}
-                {movie.Country !== 'N/A' && (
-                  <div>
-                    <p className="text-gray-400 text-sm mb-1 flex items-center gap-2"><Globe size={14} /> Country</p>
-                    <p className="text-white font-medium">{movie.Country}</p>
-                  </div>
-                )}
-                {movie.Language !== 'N/A' && (
-                  <div>
-                    <p className="text-gray-400 text-sm mb-1">Language</p>
-                    <p className="text-white font-medium">{movie.Language}</p>
-                  </div>
-                )}
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 pt-4">
+                <button className="bg-accent hover:bg-red-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-accent/40 flex items-center gap-2">
+                  <Film size={20} fill="currentColor" /> Watch Trailer
+                </button>
+                <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/10">
+                  + Add to List
+                </button>
               </div>
             </div>
-
-            {movie.Awards !== 'N/A' && (
-              <div className="bg-gradient-to-br from-accent/20 to-secondary rounded-xl p-6 border border-accent/20 shadow-lg">
-                <h3 className="text-accent font-bold mb-3 flex items-center gap-2">
-                  <Award size={20} /> Awards
-                </h3>
-                <p className="text-gray-200 text-sm leading-relaxed">
-                  {movie.Awards}
-                </p>
-              </div>
-            )}
           </div>
-
         </div>
       </div>
-    </>
+
+      {/* Details Content */}
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-12 -mt-20 relative z-10">
+        {/* Main Column */}
+        <div className="lg:col-span-2 space-y-12">
+
+          {/* Plot */}
+          <section>
+            <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+              <span className="w-1 h-6 bg-accent rounded-full" /> Storyline
+            </h3>
+            <p className="text-lg text-gray-300 leading-relaxed font-light">
+              {movie.Plot}
+            </p>
+          </section>
+
+          {/* Cast Grid */}
+          <section>
+            <h3 className="text-2xl font-bold text-white mb-6">Top Cast</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {movie.Actors.split(', ').map(actor => (
+                <div key={actor} className="bg-secondary p-4 rounded-lg border border-white/5 flex items-center gap-4 hover:bg-white/5 transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-600 flex items-center justify-center font-bold text-gray-400 text-xs">
+                    {actor.charAt(0)}
+                  </div>
+                  <span className="font-medium text-gray-200">{actor}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* Sidebar */}
+        <div className="space-y-6">
+          <div className="bg-secondary p-6 rounded-xl border border-white/5 shadow-xl">
+            <h3 className="text-lg font-bold text-white mb-4 border-b border-white/10 pb-4">Movie Info</h3>
+
+            <div className="space-y-4 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Released</span>
+                <span className="text-white font-medium">{movie.Released}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Director</span>
+                <span className="text-white font-medium text-right">{movie.Director}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Genre</span>
+                <span className="text-white font-medium text-right text-accent">{movie.Genre}</span>
+              </div>
+            </div>
+          </div>
+
+          {movie.Awards !== 'N/A' && (
+            <div className="bg-gradient-to-br from-accent/10 to-secondary p-6 rounded-xl border border-accent/20">
+              <div className="flex items-start gap-3">
+                <Award className="text-accent mt-1" size={24} />
+                <div>
+                  <h4 className="font-bold text-white mb-1">Awards</h4>
+                  <p className="text-sm text-gray-400">{movie.Awards}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

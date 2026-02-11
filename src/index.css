@@ -2,14 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --primary: #0f1014;
-  /* Darker, richer background */
-  --secondary: #18191f;
-  /* Slightly lighter surface */
-  --accent: #ff3b5c;
-  /* Vibrant punchy red */
-  --light: #f5f5f5;
-  --text-muted: #9ca3af;
+  /* Deep Cinematic Dark Theme */
+  --primary: #0a0a0a;
+  /* Almost pure black */
+  --secondary: #141414;
+  /* Slightly lighter for cards */
+  --tertiary: #1f1f1f;
+  /* Borders / Dividers */
+  --accent: #e50914;
+  /* Streaming Red */
+  --text-main: #ffffff;
+  --text-muted: #a3a3a3;
 
   color-scheme: dark;
   font-synthesis: none;
@@ -29,15 +32,12 @@ body {
   width: 100%;
   height: 100%;
   font-family: 'Outfit', system-ui, sans-serif;
-  /* Premium modern font */
-  line-height: 1.6;
-  font-weight: 400;
   background-color: var(--primary);
-  color: var(--light);
+  color: var(--text-main);
+  overflow-x: hidden;
 }
 
 #root {
-  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -46,39 +46,17 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
   display: block;
-}
-
-/* Swiper Custom Styles Overrides */
-.swiper-pagination-bullet {
-  background-color: var(--light) !important;
-  opacity: 0.3 !important;
-  width: 8px;
-  height: 8px;
-  transition: all 0.3s ease;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: var(--accent) !important;
-  opacity: 1 !important;
-  width: 24px;
-  border-radius: 4px;
-}
-
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  content: '' !important;
+  max-width: 100%;
 }
 
 /* Premium Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -87,45 +65,62 @@ img {
 
 ::-webkit-scrollbar-thumb {
   background: #333;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Animations */
+/* Utility Animations */
 .animate-fadeIn {
-  animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.animate-slideIn {
-  animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
 
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
+/* Swiper Overrides for Cinematic Look */
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.3 !important;
+  transition: all 0.3s ease;
+}
 
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: var(--accent) !important;
+  width: 20px;
+  border-radius: 4px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: white !important;
+  background: rgba(0, 0, 0, 0.5);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: var(--accent);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 18px !important;
+  font-weight: bold;
 }

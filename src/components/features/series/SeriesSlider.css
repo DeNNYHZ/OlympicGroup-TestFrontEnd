@@ -2,3 +2,11 @@
 .swiper-grid-column>.swiper-wrapper {
     flex-direction: row !important;
 }
+
+.swiper-pagination-bullet {
+    background: #fff !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--accent) !important;
+}
