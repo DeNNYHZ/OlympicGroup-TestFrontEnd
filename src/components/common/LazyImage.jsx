@@ -7,7 +7,6 @@ export default function LazyImage({ src, alt, className, placeholder = 'data:ima
     const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
-        // Reset state when src changes
         setIsLoaded(false);
         setHasError(false);
         setCurrentSrc(placeholder);

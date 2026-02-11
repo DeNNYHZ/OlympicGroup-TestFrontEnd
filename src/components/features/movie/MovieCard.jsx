@@ -35,10 +35,12 @@ export default function MovieCard({ movie }) {
                 <div className="flex items-center justify-between text-sm text-gray-400">
                     <span>{movie.Year}</span>
                     {/* Fake Rating for visual polish if not available */}
-                    <div className="flex items-center gap-1 text-yellow-500">
-                        <Star size={12} fill="currentColor" />
-                        <span className="text-white text-xs font-bold">N/A</span>
-                    </div>
+                    {movie.imdbRating && movie.imdbRating !== 'N/A' && (
+                        <div className="flex items-center gap-1 text-yellow-500">
+                            <Star size={12} fill="currentColor" />
+                            <span className="text-white text-xs font-bold">{movie.imdbRating}</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </Link>

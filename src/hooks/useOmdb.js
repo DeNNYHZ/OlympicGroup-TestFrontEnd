@@ -41,7 +41,27 @@ export const useOmdb = () => {
           setHasMore(total > page * 10);
           setTotalResults(total);
         } else if (type === 'series') {
-          setSeries(results); // Usually just one page for slider
+          // For series, we want to fetch the details to get the rating
+          const detailedSeriesPromises = results.map(async (item) => {
+            try {
+              const detailResponse = await axios.get(API_URL, {
+                params: {
+                  apikey: API_KEY,
+                  i: item.imdbID,
+                  plot: 'short'
+                }
+              });
+              if (detailResponse.data.Response === 'True') {
+                return detailResponse.data;
+              }
+              return item;
+            } catch (e) {
+              return item;
+            }
+          });
+
+          const detailedSeries = await Promise.all(detailedSeriesPromises);
+          setSeries(detailedSeries);
         }
       } else {
         if (page === 1) {

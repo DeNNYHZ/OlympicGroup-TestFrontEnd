@@ -61,21 +61,29 @@ export default function SeriesSlider({ series }) {
                                 </div>
 
                                 {/* Content Overlay */}
-                                <div className="relative h-full p-6 flex flex-col justify-center z-10">
-                                    <div className="flex items-center gap-2 mb-3 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                <div className="relative h-full p-6 flex flex-col justify-end items-center z-10 text-center bg-gradient-to-t from-black via-black/50 to-transparent">
+                                    <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
                                         <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shadow-lg shadow-accent/20">
                                             Series
                                         </span>
-                                        <span className="text-gray-400 text-xs font-mono border border-white/10 px-2 py-0.5 rounded">
-                                            {item.Year}
-                                        </span>
+                                        <div className="flex items-center gap-2">
+                                            {item.imdbRating && item.imdbRating !== 'N/A' && (
+                                                <span className="flex items-center gap-1 bg-yellow-500/90 text-black text-xs font-bold px-2 py-0.5 rounded backdrop-blur-md">
+                                                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                                                    {item.imdbRating}
+                                                </span>
+                                            )}
+                                            <span className="text-gray-300 text-xs font-mono bg-black/50 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded">
+                                                {item.Year}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <h3 className="text-white font-black text-2xl md:text-3xl leading-none mb-2 line-clamp-2 group-hover:text-accent transition-colors duration-300 drop-shadow-md">
+                                    <h3 className="text-white font-black text-2xl md:text-3xl leading-tight mb-2 line-clamp-2 group-hover:text-accent transition-colors duration-300 drop-shadow-md">
                                         {item.Title}
                                     </h3>
 
-                                    <div className="mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                                    <div className="mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
                                         <span className="flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white border-b-2 border-accent pb-0.5 inline-block">
                                             Watch Now <span className="text-accent">→</span>
                                         </span>

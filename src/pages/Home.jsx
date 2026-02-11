@@ -86,16 +86,13 @@ export default function Home() {
         )}
 
         {!currentQuery && (
-          <div className="py-32 px-4 text-center">
+          <div className="pt-64 pb-32 px-4 text-center">
             <div className="inline-block">
-              <p className="text-7xl mb-6">🎬</p>
-              <p className="text-light text-3xl font-bold mb-3">
+              <p className="text-8xl mb-8">🎬</p>
+              <p className="text-light text-4xl font-bold mb-4">
                 Selamat Datang di MovieDB
               </p>
-              <p className="text-gray-400 text-lg mb-2">
-                Temukan ribuan film dan series favorit Anda
-              </p>
-              <p className="text-gray-500 text-sm">
+              <p className="text-gray-500 text-lg">
                 Mulai dengan mengetik di search bar di atas
               </p>
             </div>
