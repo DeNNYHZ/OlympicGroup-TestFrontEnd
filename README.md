@@ -1,67 +1,46 @@
-# MovieDB - Cinematic Discovery Platform
+# Movie App
 
-A modern, responsive movie discovery web application built with **React** and **Tailwind CSS**. Integrated with the **OMDb API**, it features real-time search, infinite scrolling, and a premium user interface.
+Aplikasi web sederhana untuk mencari film dan series menggunakan **OMDb API**. Project ini dibuat menggunakan **React** dan **Tailwind CSS**.
 
-## 🚀 Key Features
+## Fitur
 
-*   **Real-time Search**: instantly find movies and series.
-*   **Infinite Scroll**: Seamless browsing of movie lists without pagination clicks.
-*   **Adaptive Design**: Fully responsive layout optimized for Desktop (2x2 Grid) and Mobile (1x2 Grid).
-*   **Premium UI**: Glassmorphism effects, smooth animations, and a cinematic dark theme.
-*   **Performance**: Implements Skeleton loading and Lazy Image strategies for optimal speed.
-*   **SEO Optimized**: Dynamic OpenGraph tags for social sharing.
+1.  **Pencarian**: Mencari film dan series berdasarkan judul.
+2.  **Series Slider**:
+    *   Tampilan slider untuk hasil pencarian "Series".
+    *   Layout Desktop: 2 kolom x 2 baris.
+    *   Layout Mobile: 1 kolom x 2 baris.
+3.  **Daftar Film**:
+    *   Tampilan grid untuk hasil pencarian "Movie".
+    *   Layout Desktop: 3 kolom.
+    *   Layout Mobile: 1 kolom.
+    *   Fitur **Infinite Scroll** (memuat film otomatis saat scroll ke bawah).
+4.  **Detail Film**: Menampilkan informasi lengkap seperti Poster, Judul, Tahun, Rating, Durasi, Pemeran, dan Sinopsis.
+5.  **Bonus**:
+    *   Lazy Loading gambar.
+    *   Animasi smooth loading.
+    *   Responsive di HP dan Laptop.
 
-## 🛠️ Tech Stack
+## Cara Menjalankan Project
 
-*   **Framework**: [React](https://react.dev/) (Vite)
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-*   **State Management**: React Hooks (Custom `useOmdb` hook)
-*   **Routing**: React Router DOM
-*   **Icons**: Lucide React
-*   **HTTP Client**: Axios
-
-## 📂 Project Structure
-
-Verified **Clean Architecture** implementation:
-
-```
-src/
-├── components/
-│   ├── common/         # Reusable UI (SearchBar, LazyImage, Skeletons)
-│   ├── features/       # Feature-specific components
-│   │   ├── movie/      # MovieGrid, MovieCard
-│   │   └── series/     # SeriesSlider
-├── hooks/              # Custom hooks (useOmdb)
-├── pages/              # Page views (Home, Detail)
-├── services/           # API services
-└── utils/              # Helper functions
-```
-
-## 📦 Installation
-
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/yourusername/movie-search-app.git
-    cd movie-search-app
-    ```
-
-2.  **Install dependencies**:
+1.  **Install Library**:
     ```bash
     npm install
     ```
 
-3.  **Setup Environment Variables**:
-    Create a `.env` file in the root directory:
+2.  **Setup API Key**:
+    Buat file `.env` dan masukkan API Key:
     ```env
     VITE_OMDB_API_KEY=a143c6cf
     VITE_OMDB_API_URL=http://www.omdbapi.com/
     ```
 
-4.  **Run Development Server**:
+3.  **Jalankan Aplikasi**:
     ```bash
     npm run dev
     ```
 
-## 📝 License
+## Teknologi yang Digunakan
 
-This project is licensed under the MIT License.
+*   React JS (Vite)
+*   Tailwind CSS
+*   Axios (untuk ambil data API)
