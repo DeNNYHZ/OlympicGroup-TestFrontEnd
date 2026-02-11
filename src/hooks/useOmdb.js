@@ -28,12 +28,11 @@ export const useOmdb = () => {
         },
       });
 
-      if (response.data.Response === 'True') {
+      if (response.data && response.data.Response === 'True') {
         const results = response.data.Search || [];
         const total = parseInt(response.data.totalResults, 10);
 
         if (type === 'movie') {
-          // Fetch details for movies too, to get the rating
           const detailedMoviePromises = results.map(async (item) => {
             try {
               const detailResponse = await axios.get(API_URL, {
@@ -43,7 +42,7 @@ export const useOmdb = () => {
                   plot: 'short'
                 }
               });
-              if (detailResponse.data.Response === 'True') {
+              if (detailResponse.data && detailResponse.data.Response === 'True') {
                 return detailResponse.data;
               }
               return item;
@@ -62,7 +61,6 @@ export const useOmdb = () => {
           setHasMore(total > page * 10);
           setTotalResults(total);
         } else if (type === 'series') {
-          // For series, we want to fetch the details to get the rating
           const detailedSeriesPromises = results.map(async (item) => {
             try {
               const detailResponse = await axios.get(API_URL, {
@@ -72,7 +70,7 @@ export const useOmdb = () => {
                   plot: 'short'
                 }
               });
-              if (detailResponse.data.Response === 'True') {
+              if (detailResponse.data && detailResponse.data.Response === 'True') {
                 return detailResponse.data;
               }
               return item;
@@ -86,7 +84,7 @@ export const useOmdb = () => {
         }
       } else {
         if (page === 1) {
-          setError(response.data.Error);
+          setError(response.data?.Error || 'Something went wrong');
           if (type === 'movie') setMovies([]);
           if (type === 'series') setSeries([]);
         }
@@ -109,10 +107,10 @@ export const useOmdb = () => {
           plot: 'full',
         },
       });
-      if (response.data.Response === 'True') {
+      if (response.data && response.data.Response === 'True') {
         return response.data;
       } else {
-        setError(response.data.Error);
+        setError(response.data?.Error || 'Something went wrong');
         return null;
       }
     } catch (err) {

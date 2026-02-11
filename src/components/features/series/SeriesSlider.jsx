@@ -50,7 +50,6 @@ export default function SeriesSlider({ series }) {
                     {series.map((item) => (
                         <SwiperSlide key={item.imdbID} className="h-[calc((100%-24px)/2)]">
                             <Link to={`/detail/${item.imdbID}`} className="h-full block group relative overflow-hidden rounded-xl bg-secondary border border-white/5 hover:border-accent/50 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10">
-                                {/* Background Image (Full Cover) */}
                                 <div className="absolute inset-0">
                                     <LazyImage
                                         src={item.Poster}
@@ -60,7 +59,6 @@ export default function SeriesSlider({ series }) {
                                     <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
                                 </div>
 
-                                {/* Content Overlay */}
                                 <div className="relative h-full p-6 flex flex-col justify-end items-center z-10 text-center bg-gradient-to-t from-black via-black/50 to-transparent">
                                     <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
                                         <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shadow-lg shadow-accent/20">
@@ -94,6 +92,6 @@ export default function SeriesSlider({ series }) {
                     ))}
                 </Swiper>
             </div>
-        </div>
+        </div >
     );
 }

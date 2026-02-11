@@ -19,10 +19,6 @@ export default function Home() {
     setMovies([]);
     setSeries([]);
 
-    // Search both Series and Movies
-    // Note: We fire both requests. 
-    // Series usually doesn't need pagination for the slider in this simple context, 
-    // or we could implement it if requested. Here we just fetch page 1 for series.
     searchMovies(query, 1, 'series');
     searchMovies(query, 1, 'movie');
   };

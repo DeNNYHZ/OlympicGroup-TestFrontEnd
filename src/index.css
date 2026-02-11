@@ -2,15 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Deep Cinematic Dark Theme */
   --primary: #0a0a0a;
-  /* Almost pure black */
   --secondary: #141414;
-  /* Slightly lighter for cards */
   --tertiary: #1f1f1f;
-  /* Borders / Dividers */
   --accent: #e50914;
-  /* Streaming Red */
   --text-main: #ffffff;
   --text-muted: #a3a3a3;
 
