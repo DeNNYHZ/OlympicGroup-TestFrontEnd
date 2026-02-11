@@ -1,11 +1,16 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --primary: #1a1a2e;
-  --secondary: #16213e;
-  --accent: #e94560;
-  --light: #eaeaea;
-  
+  --primary: #0f1014;
+  /* Darker, richer background */
+  --secondary: #18191f;
+  /* Slightly lighter surface */
+  --accent: #ff3b5c;
+  /* Vibrant punchy red */
+  --light: #f5f5f5;
+  --text-muted: #9ca3af;
+
   color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,15 +24,14 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Outfit', system-ui, sans-serif;
+  /* Premium modern font */
+  line-height: 1.6;
   font-weight: 400;
-}
-
-body {
   background-color: var(--primary);
   color: var(--light);
 }
@@ -42,7 +46,7 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 img {
@@ -51,26 +55,43 @@ img {
   display: block;
 }
 
-/* Swiper Custom Styles */
+/* Swiper Custom Styles Overrides */
 .swiper-pagination-bullet {
-  background-color: #e94560 !important;
-  opacity: 0.5 !important;
+  background-color: var(--light) !important;
+  opacity: 0.3 !important;
+  width: 8px;
+  height: 8px;
+  transition: all 0.3s ease;
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #e94560 !important;
+  background-color: var(--accent) !important;
   opacity: 1 !important;
+  width: 24px;
+  border-radius: 4px;
 }
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  font-size: 20px !important;
-  color: white !important;
+  content: '' !important;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-  color: white !important;
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /* Smooth Scrolling */
@@ -78,26 +99,20 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Loading Animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Utility Classes */
+/* Animations */
 .animate-fadeIn {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .animate-slideIn {
-  animation: slideIn 0.3s ease-in-out;
+  animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -105,9 +120,10 @@ html {
 
 @keyframes slideIn {
   from {
-    transform: translateY(20px);
+    transform: translateY(30px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;

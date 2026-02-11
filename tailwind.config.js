@@ -19,7 +19,7 @@ export default {
       black: '#000000',
     },
     fontFamily: {
-      sans: ['system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+      sans: ['Outfit', 'system-ui', 'sans-serif'],
     },
     extend: {
       animation: {
