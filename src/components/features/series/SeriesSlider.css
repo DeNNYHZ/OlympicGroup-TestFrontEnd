@@ -1,0 +1,4 @@
+/* Custom Grid Styles for Swiper */
+.swiper-grid-column>.swiper-wrapper {
+    flex-direction: row !important;
+}

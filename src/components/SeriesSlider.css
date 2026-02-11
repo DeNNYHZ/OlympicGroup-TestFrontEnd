@@ -1,8 +1,0 @@
-/* SeriesSlider.css */
-.swiper-grid-column > .swiper-wrapper {
-  flex-direction: column;
-}
-
-.swiper-slide {
-  height: calc((100% - 30px) / 2) !important;
-}
