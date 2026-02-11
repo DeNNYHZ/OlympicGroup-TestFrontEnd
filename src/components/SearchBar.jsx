@@ -27,7 +27,7 @@ export default function SearchBar({ onSearch, isLoading }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for movies, series..."
-            className="w-full bg-secondary/80 text-light placeholder-gray-400 rounded-full py-3 md:py-4 pl-12 md:pl-14 pr-32 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:bg-secondary transition-all shadow-lg border border-transparent focus:border-accent/30 text-base md:text-lg"
+            className="w-full bg-secondary/80 text-light placeholder-gray-400 rounded-full py-3 md:py-4 pl-14 md:pl-16 pr-32 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:bg-secondary transition-all shadow-lg border border-transparent focus:border-accent/30 text-base md:text-lg"
           />
           <Search className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 md:w-6 md:h-6 group-focus-within:text-accent transition-colors" />
 
