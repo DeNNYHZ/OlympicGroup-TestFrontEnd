@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import LazyImage from '../components/LazyImage';
+import LazyImage from '../components/common/LazyImage';
 import { useOmdb } from '../hooks/useOmdb';
 import { ArrowLeft, Star, Calendar, Clock, Film, Grip, Globe, PenTool, Award } from 'lucide-react';
 
