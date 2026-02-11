@@ -32,8 +32,8 @@ npm install
 
 2. Konfigurasi API
 Buat file .env pada folder root:
-VITE_OMDB_API_KEY=a143c6cf
-VITE_OMDB_API_URL=http://www.omdbapi.com/
+VITE_OMDB_API_KEY=<API_KEY>
+VITE_OMDB_API_URL=https://www.omdbapi.com/
 
 3. Jalankan Project
 npm run dev

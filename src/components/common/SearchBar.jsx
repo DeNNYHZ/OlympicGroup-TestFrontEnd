@@ -19,7 +19,7 @@ export default function SearchBar({ onSearch, isLoading }) {
     };
 
     return (
-        <div className={`sticky top-0 z-50 transition-all duration-500 border-b ${scrolled ? 'bg-primary/95 backdrop-blur-md border-white/5 py-4' : 'bg-transparent border-transparent py-8 mt-6'}`}>
+        <div className={`sticky top-0 z-50 transition-all duration-500 border-b ${scrolled ? 'bg-primary/95 backdrop-blur-md border-white/5 py-4' : 'bg-transparent border-transparent py-8 mt-12'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-8">
                 <div className="hidden md:flex text-3xl font-black tracking-tighter text-white">
                     MOVIE<span className="text-accent">DB</span>

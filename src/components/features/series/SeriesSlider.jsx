@@ -66,7 +66,7 @@ export default function SeriesSlider({ series }) {
                                         <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shadow-lg shadow-accent/20">
                                             Series
                                         </span>
-                                        <span className="text-gray-300 text-xs font-mono bg-black/50 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded">
+                                        <span className="text-gray-300 text-xs font-bold bg-black/50 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded">
                                             {item.Year}
                                         </span>
                                     </div>
