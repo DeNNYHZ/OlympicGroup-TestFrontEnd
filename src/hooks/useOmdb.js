@@ -33,10 +33,31 @@ export const useOmdb = () => {
         const total = parseInt(response.data.totalResults, 10);
 
         if (type === 'movie') {
+          // Fetch details for movies too, to get the rating
+          const detailedMoviePromises = results.map(async (item) => {
+            try {
+              const detailResponse = await axios.get(API_URL, {
+                params: {
+                  apikey: API_KEY,
+                  i: item.imdbID,
+                  plot: 'short'
+                }
+              });
+              if (detailResponse.data.Response === 'True') {
+                return detailResponse.data;
+              }
+              return item;
+            } catch (e) {
+              return item;
+            }
+          });
+
+          const detailedMovies = await Promise.all(detailedMoviePromises);
+
           if (page === 1) {
-            setMovies(results);
+            setMovies(detailedMovies);
           } else {
-            setMovies(prev => [...prev, ...results]);
+            setMovies(prev => [...prev, ...detailedMovies]);
           }
           setHasMore(total > page * 10);
           setTotalResults(total);

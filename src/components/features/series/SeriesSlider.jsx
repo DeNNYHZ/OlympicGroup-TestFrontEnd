@@ -66,22 +66,22 @@ export default function SeriesSlider({ series }) {
                                         <span className="bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider shadow-lg shadow-accent/20">
                                             Series
                                         </span>
-                                        <div className="flex items-center gap-2">
-                                            {item.imdbRating && item.imdbRating !== 'N/A' && (
-                                                <span className="flex items-center gap-1 bg-yellow-500/90 text-black text-xs font-bold px-2 py-0.5 rounded backdrop-blur-md">
-                                                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                                                    {item.imdbRating}
-                                                </span>
-                                            )}
-                                            <span className="text-gray-300 text-xs font-mono bg-black/50 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded">
-                                                {item.Year}
-                                            </span>
-                                        </div>
+                                        <span className="text-gray-300 text-xs font-mono bg-black/50 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded">
+                                            {item.Year}
+                                        </span>
                                     </div>
 
-                                    <h3 className="text-white font-black text-2xl md:text-3xl leading-tight mb-2 line-clamp-2 group-hover:text-accent transition-colors duration-300 drop-shadow-md">
-                                        {item.Title}
-                                    </h3>
+                                    <div className="flex items-center justify-center gap-3 mb-2">
+                                        {item.imdbRating && item.imdbRating !== 'N/A' && (
+                                            <div className="flex items-center gap-1.5 text-yellow-400">
+                                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                                                <span className="text-white text-lg font-bold">{item.imdbRating}</span>
+                                            </div>
+                                        )}
+                                        <h3 className="text-white font-black text-2xl md:text-3xl leading-tight line-clamp-2 group-hover:text-accent transition-colors duration-300 drop-shadow-md">
+                                            {item.Title}
+                                        </h3>
+                                    </div>
 
                                     <div className="mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
                                         <span className="flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white border-b-2 border-accent pb-0.5 inline-block">
